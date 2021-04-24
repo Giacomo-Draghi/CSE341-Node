@@ -9,21 +9,23 @@ const requestHandler = (req, res) => {
     const method = req.method;
     // Cheching different URL and method
     if (url == '/') {
+        res.setHeader('Content-Type', 'text/html');
         res.write('<html>');
         res.write('<head><title>My Page</title></head>');
-        res.write('<h1>Welcome to My Page</h1>');
+        res.write('<body><h1>Welcome to My Page</h1>');
         res.write('<p>If you want to see a list of the users, pleas follow the <a href="./users">Link.</a></p>');
         res.write('<h2>Create a User</h2>');
         res.write('<p>If you want to become a user, fille the form with your full name!</p>');
-        res.write('<body><form action="/create-user" method="POST"><input type="text" name="user"><button type="submit">Send</button></form></body>');
+        res.write('<form action="/create-user" method="POST"><input type="text" name="user"><button type="submit">Send</button></form></body>');
         res.write('</html>');
         // the retun is needed if we enter the if, so that it stops execution and does not run the part after the if
         return res.end();
     }
     if (url == '/users') {
+        res.setHeader('Content-Type', 'text/html');
         res.write('<html>');
         res.write('<head><title>My Page | Users</title></head>');
-        res.write('<h1>List of Users</h1>');
+        res.write('<body><h1>List of Users</h1>');
         res.write('<ul>');
         res.write('<li>Mario Draghi</li>');
         res.write('<li>Tom Holland</li>');
@@ -31,7 +33,7 @@ const requestHandler = (req, res) => {
         res.write('<li>Super Man</li>');
         res.write('<li>You</li>');
         res.write('</ul>');
-        res.write('<p>Go back to the <a href="./">Home.</a></p>');
+        res.write('<p>Go back to the <a href="./">Home.</a></p></body>');
         res.write('</html>');
         // the retun is needed if we enter the if, so that it stops execution and does not run the part after the if
         return res.end();
@@ -40,7 +42,7 @@ const requestHandler = (req, res) => {
         const body = [];
         // the on method helps us to listen to certain event, the data event runs when a new chunck is ready to be set. 
         req.on('data', (chunk) => {
-            console.log(chunk);
+            // console.log(chunk);
             body.push(chunk);
         });
         return req.on('end', () => {
