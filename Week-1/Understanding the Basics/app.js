@@ -1,34 +1,29 @@
 // Importing modules
-// HTTP
-// const http = require('http');
 // My routers
 const routes = require('./routes');
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
 // Express JS
 const express = require('express');
+// Body parser
+const bodyParser = require('body-parser');
+// Path
+const path = require('path');
 
 // Creating a express application
 const app = express();
 
 // Working with the middleware
-app.use('/', (req, res, next) => {
-    console.log('This always runs!');
-    next();
-});
+// parsing 
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/add-product', (req, res, next) => {
-    console.log('In another middleware!');
-    res.send('<h1>The "Add Product" Page.</h1>');
-});
+// Calling the router object
+app.use('/admin',adminRoutes);
+app.use(shopRoutes);
 
-app.use('/', (req, res, next) => {
-    console.log('In another middleware!');
-    res.send('<h1>Hello from Express</h1>'); //Send a responce
-});
+app.use((req, res, next) => {
+    res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+}); 
 
-console.log(routes.someText);
-
-// This variable has an http function to request and response datas, and it will be the one creating the server.
-// const server = http.createServer(app);
-
-// server.listen(3000);
 app.listen(3000);

@@ -1,7 +1,7 @@
 // Adding modules
-const express = require('express'); 
+const express = require('express');
 
-const app = express(); 
+const app = express();
 
 // app.use('/product', (req, res, next) => {
 //     console.log('Product Page');
