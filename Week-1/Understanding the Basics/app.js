@@ -1,24 +1,34 @@
-const http = require('http');
+// Importing modules
+// HTTP
+// const http = require('http');
+// My routers
 const routes = require('./routes');
+// Express JS
+const express = require('express');
 
-// function rqListener(req, res) {
-//
-// }
+// Creating a express application
+const app = express();
+
+// Working with the middleware
+app.use('/', (req, res, next) => {
+    console.log('This always runs!');
+    next();
+});
+
+app.use('/add-product', (req, res, next) => {
+    console.log('In another middleware!');
+    res.send('<h1>The "Add Product" Page.</h1>');
+});
+
+app.use('/', (req, res, next) => {
+    console.log('In another middleware!');
+    res.send('<h1>Hello from Express</h1>'); //Send a responce
+});
 
 console.log(routes.someText);
 
 // This variable has an http function to request and response datas, and it will be the one creating the server.
-const server = http.createServer(routes.handler);
+// const server = http.createServer(app);
 
-// (req, res) => {
-// console.log(req.url, req.method, req.headers);
-// The following function closes the server, not to use since we want the server to be up and runnign
-// process.exit();
-// Constant to get the url being used.
-// const url = req.url;
-
-// Constant to get the Method being used.
-// const method = req.method;
-// });
-
-server.listen(3000);
+// server.listen(3000);
+app.listen(3000);
