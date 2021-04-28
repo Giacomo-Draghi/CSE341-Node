@@ -1,7 +1,7 @@
 // Importing modules
 // My routers
 const routes = require('./routes');
-const adminRoutes = require('./routes/admin');
+const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 // Express JS
 const express = require('express');
@@ -13,13 +13,17 @@ const path = require('path');
 // Creating a express application
 const app = express();
 
+// telling to compile with templates and adding it
+app.set('view engine', 'pug');
+app.set('views','views');
+
 // Working with the middleware
 // parsing 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Calling the router object
-app.use('/admin',adminRoutes);
+app.use('/admin',adminData.routers);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
