@@ -1,0 +1,29 @@
+1. Copy and paste the URL for your web application (e.g., Heroku):
+
+https://tranquil-brushlands-44663.herokuapp.com/
+
+2. Copy and paste the URL for your source code repository (e.g., GitHub):
+
+https://github.com/Giacomo-Draghi/CSE341-Week2
+
+3. Briefly list and describe the elements of the application that are functioning. 
+
+The application is working with express js and ejs, it gets 2 imputs from the user and displays more than 1 result using a local variable, and it is hosten on heroku
+
+4. Briefly describe any pieces of the assignment that are not yet working correctly.
+
+I think it is all working as it should. 
+
+5. Briefly describe the "coolest" thing you learned while completing this assignment.
+
+I really loved the entire ejs part of the learning proces and I am really exited about node.js in general I can see so many different things. I love being able to use js inside the html thanks to ejs. 
+
+6. If you could change this assignment to be more effective or helpful, what would you change?
+
+I would add more information about heroku it was really hard to get it to work and I had a lot of truble doing so. 
+
+7. Please select the category you feel best describes your assignment:
+   5 - Shows creativity and excels above and beyond requirements
+
+8. Provide a brief justification (1-2 sentences) for selecting that category.
+I did all was required for the extra credit, and even if just doing the heroku hosting was part of the assignment, it was the hardest par for me, I had to look on the web and whatch severla tutorials before getting my way around it. I relly feel I have put the best effort in it. 

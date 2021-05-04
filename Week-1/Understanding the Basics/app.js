@@ -1,7 +1,7 @@
 // Importing modules
 // My routers
 const routes = require('./routes');
-const adminData = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 // Express JS
 const express = require('express');
@@ -11,6 +11,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 // handlebars
 // const expressHbs = require('express-handlebars');
+// Controllers
+const errorController = require('./controllers/error');
 
 // Creating a express application
 const app = express();
@@ -32,12 +34,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Calling the router object
-app.use('/admin',adminData.routers);
+app.use('/admin',adminRoutes);
 app.use(shopRoutes);
 
-app.use((req, res, next) => {
-    // res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
-    res.status(404).render('404', {docTitle: '404 Error'});
-}); 
+app.use(errorController.get404); 
 
 app.listen(3000);
