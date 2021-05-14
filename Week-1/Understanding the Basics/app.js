@@ -13,30 +13,33 @@ const path = require('path');
 // const expressHbs = require('express-handlebars');
 // Controllers
 const errorController = require('./controllers/error');
+const User = require('./models/user');
 
 // Creating a express application
 const app = express();
 
 // telling to compile with templates and adding it
-// app.engine('hbs', expressHbs({
-//     layoutsDir: 'views/layouts/', 
-//     defaultLayout: 'main-layout', 
-//     extname: 'hbs'
-// }));
-// app.set('view engine', 'pug');
-// app.set('view engine', 'hbs');
 app.set('view engine', 'ejs');
-app.set('views','views');
+app.set('views', 'views');
 
 // Working with the middleware
 // parsing 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+    // User.findByPk(1)
+    // .then(user =>{
+    //     req.user = user;
+    //     next();
+    // })
+    // .catch(err => console.log(err));
+});
+
 // Calling the router object
-app.use('/admin',adminRoutes);
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
-app.use(errorController.get404); 
+app.use(errorController.get404);
 
-app.listen(3000);
