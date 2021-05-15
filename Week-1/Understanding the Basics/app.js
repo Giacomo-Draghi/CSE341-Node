@@ -14,6 +14,7 @@ const mongoose = require('mongoose');
 // Controllers
 const errorController = require('./controllers/error');
 const User = require('./models/user');
+const { use } = require('./routes/shop');
 
 // Creating a express application
 const app = express();
@@ -29,9 +30,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
-    User.findById('609f0637a08d86a5c21ae0e3')
+    User.findById('609fb293058ce545b429f912')
         .then(user => {
-            req.user = new User(user.name, user.email, user.cart, user._id);
+            req.user = user;
             next();
         })
         .catch(err => console.log(err));
@@ -46,6 +47,18 @@ app.use(errorController.get404);
 mongoose
     .connect('mongodb+srv://giacomo:963741@cluster0.btxa6.mongodb.net/shop?retryWrites=true&w=majority')
     .then(result => {
+        User.findOne().then(user => {
+            if (!user) {
+                const user = new User ({
+                    name: 'Giacomo',
+                    email: 'jak127@yahoo.it',
+                    cart: {
+                        items: []
+                    }
+                });
+                user.save();
+            }
+        });
         app.listen(3000);
     })
     .catch(err => {
