@@ -9,8 +9,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 // Path
 const path = require('path');
-// handlebars
-// const expressHbs = require('express-handlebars');
+// mongoose
+const mongoose = require('mongoose');
 // Controllers
 const errorController = require('./controllers/error');
 const User = require('./models/user');
@@ -29,12 +29,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
-    // User.findByPk(1)
-    // .then(user =>{
-    //     req.user = user;
-    //     next();
-    // })
-    // .catch(err => console.log(err));
+    User.findById('609f0637a08d86a5c21ae0e3')
+        .then(user => {
+            req.user = new User(user.name, user.email, user.cart, user._id);
+            next();
+        })
+        .catch(err => console.log(err));
 });
 
 // Calling the router object
@@ -43,3 +43,11 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+mongoose
+    .connect('mongodb+srv://giacomo:963741@cluster0.btxa6.mongodb.net/shop?retryWrites=true&w=majority')
+    .then(result => {
+        app.listen(3000);
+    })
+    .catch(err => {
+        console.log(err);
+    });
